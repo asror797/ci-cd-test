@@ -6,7 +6,8 @@ const PORT = 7755
 app.get('/',(req,res) => {
     res.json({
         message:"OK",
-        status:200
+        status:200,
+        version:"1.0.0"
     })
 })
 
