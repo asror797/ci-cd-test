@@ -1,39 +1,26 @@
 name: Node.js CI
 
-on: 
+on:
   push:
-    branches: [main]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-  jobs:
-    build:
-      runs-on: ubuntu-latest
+jobs:
+  build:
 
-      steps:
-        - uses: actions/checkout@v3
-        - name: Use Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '18.x'
-        - run: npm i
-        - run: npm run dev
-        - run: npm test
+    runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x, 20.x]
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Deploy using ssh 
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.HOST }}
-#           username: ${{ secrets.USERNAME }}
-#           key: ${{ secrets.PRIVATE_KEY }}
-#           port: 22
-#            script: |
-#               cd ~/Project
-#               git pull origin master
-#               git status
-#               npm install --only=prod
-#               pm2 restart node1
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
