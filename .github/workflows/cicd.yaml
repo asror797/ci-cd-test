@@ -19,4 +19,4 @@ jobs:
           cd ~/Projects/ci-cd-test/
           git pull
           npm i
-          pm2 restart 32
+          pm2 restart 8
