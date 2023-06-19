@@ -4,6 +4,7 @@ const app = express();
 const PORT = 7755
 
 app.get('/',(req,res) => {
+    console.log('ok')
     res.json({
         message:"OK",
         status:200,
