@@ -8,7 +8,7 @@ app.get('/',(req,res) => {
     res.json({
         message:"OK",
         status:200,
-        version:"1.0.0"
+        version:"1.0.1"
     })
 })
 
